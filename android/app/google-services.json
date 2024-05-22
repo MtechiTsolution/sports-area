@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "228348484639",
+    "project_id": "sports-areas-486fb",
+    "storage_bucket": "sports-areas-486fb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:228348484639:android:faf10779f845f4ec64492a",
+        "android_client_info": {
+          "package_name": "com.mit.sports_areas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIeOUkGJODqt4bYjU4Q_rMCcEOLOEdnRM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
