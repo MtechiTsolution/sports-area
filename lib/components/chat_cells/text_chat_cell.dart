@@ -3,13 +3,14 @@ import 'package:foap/helper/imports/chat_imports.dart';
 import 'package:foap/helper/imports/common_import.dart';
 import 'package:foap/helper/string_extension.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:responsive_text_widget/responsive_text_widget.dart';
 import '../link_preview.dart';
 
 class TextChatTile extends StatelessWidget {
   final ChatMessageModel message;
 
   const TextChatTile({Key? key, required this.message}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +33,13 @@ class TextChatTile extends StatelessWidget {
                     throw 'Could not launch $link';
                   }
                 },
-                text: messageString,
-                style: TextStyle(
-                    fontSize: FontSizes.b2,
-                    color: AppColorConstants.mainTextColor),
+
+
+                    text: messageString,
+                    style: TextStyle(
+                        fontSize: FontSizes.b2, color: AppColorConstants.mainTextColor, overflow: TextOverflow.ellipsis,),
+
+
               )
             ],
           )
@@ -47,9 +51,12 @@ class TextChatTile extends StatelessWidget {
                 throw 'Could not launch $link';
               }
             },
-            text: messageString,
-            style: TextStyle(
-                fontSize: FontSizes.b2, color: AppColorConstants.mainTextColor),
-          );
+        text: messageString,
+
+     style: TextStyle(
+         fontSize: FontSizes.b2, color: AppColorConstants.mainTextColor),
+
+    );
+
   }
 }

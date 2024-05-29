@@ -12,7 +12,7 @@ export 'package:foap/screens/chat/contact_list.dart';
 export 'package:foap/screens/chat/group/select_user_group_chat.dart';
 export 'package:foap/screens/chat/group/enter_group_info.dart';
 export 'package:foap/screens/chat/group/update_group_info.dart';
-export 'package:foap/screens/chat/chat_media_sharing_popup.dart';
+export 'package:foap/screens/chat/chat_detail.dart';
 export 'package:foap/screens/chat/chat_media.dart';
 export 'package:foap/screens/chat/group/group_settings.dart';
 export 'package:foap/screens/chat/wallpapers.dart';
@@ -45,8 +45,6 @@ export 'package:foap/components/reply_chat_cells/file_reply_chat_cell.dart';
 export 'package:foap/components/reply_chat_cells/reply_chat_cell.dart';
 
 export 'package:foap/components/message_image.dart';
-
-
 export 'package:foap/controllers/chat_and_call/random_chat_and_call_controller.dart';
 export 'package:foap/controllers/chat_and_call/conatcts_controller.dart';
 export 'package:foap/controllers/chat_and_call/chat_history_controller.dart';

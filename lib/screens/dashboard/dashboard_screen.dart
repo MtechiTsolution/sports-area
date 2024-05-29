@@ -137,7 +137,7 @@ class DashboardState extends State<DashboardScreen> {
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:foap/screens/dashboard/offers&application.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -195,8 +195,10 @@ class DashboardState extends State<DashboardScreen> {
 
     widgets = [
       const HomeFeedScreen(),
-    const  ChatHistory(),
-      const Reels(needBackBtn: false),
+   // const  ChatHistory(),
+      const Explore(),
+  //    const Reels(needBackBtn: false),
+      Offer_Application(),
       const WatchVideos(),
       const MyProfile(showBack: false),
       Test(),

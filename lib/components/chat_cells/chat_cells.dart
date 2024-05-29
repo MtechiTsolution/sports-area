@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:foap/components/chat_cells/story_chat_cell.dart';
 import 'package:foap/components/chat_cells/story_reply_chat_cell.dart';
 import 'package:foap/helper/imports/chat_imports.dart';
@@ -20,11 +21,13 @@ class ChatMessageTile extends StatelessWidget {
       required this.replyMessageTapHandler,
       required this.messageTapHandler});
 
+
   @override
   Widget build(BuildContext context) {
     return message.messageContentType == MessageContentType.groupAction
         ? ChatGroupActionCell(message: message)
         : Row(
+      mainAxisAlignment: message.isMineMessage ? MainAxisAlignment.end: MainAxisAlignment.start,
             children: [
               actionMode
                   ? Obx(() => Row(
@@ -45,8 +48,7 @@ class ChatMessageTile extends StatelessWidget {
                       ))
                   : Container(),
               // message.isMineMessage ? const Spacer() : Container(),
-              Expanded(
-                child: Container(
+        Container(
                   color: message.messageContentType == MessageContentType.gif ||
                           message.messageContentType ==
                               MessageContentType.sticker ||
@@ -56,15 +58,15 @@ class ChatMessageTile extends StatelessWidget {
                               MessageContentType.reactedOnStory ||
                           message.messageContentType == MessageContentType.story
                       ? Colors.transparent
-                      : message.isMineMessage
-                          ? AppColorConstants.themeColor.withOpacity(0.5)
-                          : AppColorConstants.cardColor,
+                      :
+                  message.isMineMessage ? AppColorConstants.themeColor.withOpacity(0.5) : AppColorConstants.cardColor,
+                
                   child: Column(
-                    crossAxisAlignment: message.isMineMessage
+                  crossAxisAlignment: message.isMineMessage
                         ? CrossAxisAlignment.end
                         : CrossAxisAlignment.start,
                     children: [
-                      showName ? nameWidget(context) : Container(),
+                     showName ? nameWidget(context) : Container(),
                       message.messageContentType == MessageContentType.forward
                           ? Row(
                               children: [
@@ -73,9 +75,9 @@ class ChatMessageTile extends StatelessWidget {
                                   size: 15,
                                   color: AppColorConstants.iconColor,
                                 ).rotate(-40).rP4,
-                                BodyLargeText(
-                                  forwardString.tr,
-                                ),
+                                // BodyLargeText(
+                                //   forwardString.tr,
+                                // ),
                               ],
                             )
                           : Container(),
@@ -97,8 +99,9 @@ class ChatMessageTile extends StatelessWidget {
                   ).p8,
                 ).round(10).setPadding(
                     left: message.isMineMessage ? 50 : 0,
-                    right: message.isMineMessage ? 0 : 50),
-              ),
+                    right: message.isMineMessage ? 0 : 50
+        ),
+
               // message.isMineMessage ? Container() : const Spacer(),
             ],
           );

@@ -39,9 +39,9 @@ class _ExploreJobsState extends State<ExploreJobs> {
           },
           child: Column(
             children: [
-              backNavigationBar(
-                title: jobsString.tr,
-              ),
+              // backNavigationBar(
+              //   title: jobsString.tr,
+              // ),
               Expanded(
                 child: PagingScrollView(
                     child: Column(
@@ -53,38 +53,38 @@ class _ExploreJobsState extends State<ExploreJobs> {
                                 onSearchCompleted: (text) {})
                             .p(DesignConstants.horizontalPadding),
                         if (widget.fromCategory == false)
-                          GetBuilder<JobController>(
-                              init: _jobController,
-                              builder: (ctx) {
-                                return CategorySlider(
-                                  categories: _jobController.categories,
-                                  onSelection: (category) {
-                                    _jobController.setCategoryId(category?.id);
-                                  },
-                                );
-                              }).bp(40),
+                          // GetBuilder<JobController>(
+                          //     init: _jobController,
+                          //     builder: (ctx) {
+                          //       return CategorySlider(
+                          //         categories: _jobController.categories,
+                          //         onSelection: (category) {
+                          //           _jobController.setCategoryId(category?.id);
+                          //         },
+                          //       );
+                          //     }).bp(40),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Obx(() => _jobController
-                                        .jobsDataWrapper.totalRecords.value >
-                                    0
-                                ? Row(
-                                    children: [
-                                      Container(
-                                        height: 20,
-                                        width: 5,
-                                        color: AppColorConstants.themeColor,
-                                      ).round(5),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      Obx(() => BodyLargeText(
-                                          '${found.tr} ${_jobController.jobsDataWrapper.totalRecords} ${jobsString.tr.toLowerCase()}',
-                                          weight: TextWeight.semiBold)),
-                                    ],
-                                  ).hp(DesignConstants.horizontalPadding)
-                                : Container()),
+                            // Obx(() => _jobController
+                            //             .jobsDataWrapper.totalRecords.value >
+                            //         0
+                            //     ? Row(
+                            //         children: [
+                            //           Container(
+                            //             height: 20,
+                            //             width: 5,
+                            //             color: AppColorConstants.themeColor,
+                            //           ).round(5),
+                            //           const SizedBox(
+                            //             width: 10,
+                            //           ),
+                            //           Obx(() => BodyLargeText(
+                            //               '${found.tr} ${_jobController.jobsDataWrapper.totalRecords} ${jobsString.tr.toLowerCase()}',
+                            //               weight: TextWeight.semiBold)),
+                            //         ],
+                            //       ).hp(DesignConstants.horizontalPadding)
+                            //     : Container()),
                             const SizedBox(
                               height: 20,
                             ),

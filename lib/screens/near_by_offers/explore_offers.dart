@@ -34,16 +34,16 @@ class _ExploreOffersState extends State<ExploreOffers> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-        backgroundColor: AppColorConstants.backgroundColor,
+       backgroundColor: AppColorConstants.backgroundColor,
         body: GestureDetector(
             onTap: () {
-              FocusScope.of(context).requestFocus(FocusNode());
+             FocusScope.of(context).requestFocus(FocusNode());
             },
             child: Column(
               children: [
-                backNavigationBar(
-                  title: offers.tr,
-                ),
+               // backNavigationBar(
+               //   title:offers.tr,
+               // ),
                 Expanded(
                   child: PagingScrollView(
                       child: Column(
@@ -54,43 +54,43 @@ class _ExploreOffersState extends State<ExploreOffers> {
                                   },
                                   onSearchCompleted: (text) {})
                               .p(DesignConstants.horizontalPadding),
-                          if (widget.category == null)
-                            GetBuilder<NearByOffersController>(
-                                init: _offersController,
-                                builder: (ctx) {
-                                  return CategorySlider(
-                                    categories: _offersController.categories,
-                                    onSelection: (category) {
-                                      _offersController
-                                          .setOfferCategoryId(category?.id);
-                                    },
-                                  );
-                                }).bp(40),
+                        //  if (widget.category == null)
+                            // GetBuilder<NearByOffersController>(
+                            //     init: _offersController,
+                            //     builder: (ctx) {
+                            //       return CategorySlider(
+                            //         categories: _offersController.categories,
+                            //         onSelection: (category) {
+                            //           _offersController
+                            //               .setOfferCategoryId(category?.id);
+                            //         },
+                            //       );
+                            //     }).bp(40),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Obx(() =>
-                                  _offersController.totalOffersFound.value > 0
-                                      ? Row(
-                                          children: [
-                                            Container(
-                                              height: 20,
-                                              width: 5,
-                                              color:
-                                                  AppColorConstants.themeColor,
-                                            ).round(5),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Obx(() => BodyLargeText(
-                                                '${found.tr} ${_offersController.totalOffersFound} ${offers.tr.toLowerCase()}',
-                                                weight: TextWeight.semiBold)),
-                                          ],
-                                        ).hp(DesignConstants.horizontalPadding)
-                                      : Container()),
-                              const SizedBox(
-                                height: 20,
-                              ),
+                              // Obx(() =>
+                              //     _offersController.totalOffersFound.value > 0
+                              //         ? Row(
+                              //             children: [
+                              //               Container(
+                              //                 height: 20,
+                              //                 width: 5,
+                              //                 color:
+                              //                     AppColorConstants.themeColor,
+                              //               ).round(5),
+                              //               const SizedBox(
+                              //                 width: 10,
+                              //               ),
+                              //               Obx(() => BodyLargeText(
+                              //                   '${found.tr} ${_offersController.totalOffersFound} ${offers.tr.toLowerCase()}',
+                              //                   weight: TextWeight.semiBold)),
+                              //             ],
+                              //           ).hp(DesignConstants.horizontalPadding)
+                              //         : Container()),
+                              // const SizedBox(
+                              //   height: 20,
+                              // ),
                               OffersList(source: OfferSource.normal)
                             ],
                           )
@@ -100,7 +100,8 @@ class _ExploreOffersState extends State<ExploreOffers> {
                         _offersController.getOffers(() {
                           refreshController.loadComplete();
                         });
-                      }),
+                      }
+                      ),
                 ),
               ],
             )));

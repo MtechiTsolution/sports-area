@@ -3,6 +3,7 @@ import 'package:foap/screens/jobs_listing/applied_jobs.dart';
 import '../../helper/imports/common_import.dart';
 import 'explore_jobs.dart';
 import 'job_categories.dart';
+import '../test.dart';
 
 class JobsDashboardController extends GetxController {
   RxInt currentIndex = 0.obs;
@@ -19,13 +20,14 @@ class JobsDashboardController extends GetxController {
 }
 
 class JobDashboard extends StatelessWidget {
-  JobDashboard({super.key});
+ JobDashboard({super.key});
 
   final JobsDashboardController _dashboardController =
       JobsDashboardController();
   final JobController jobController = Get.find();
 
   final List<Widget> items = [
+    //Test(),
     const ExploreJobs(
       fromCategory: false,
     ),
@@ -75,7 +77,8 @@ class JobDashboard extends StatelessWidget {
               ),
             ],
           ),
-        )));
+        )
+    ));
   }
 
   void onTabTapped(int index) async {

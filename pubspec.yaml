@@ -87,6 +87,8 @@ dependencies:
   google_mlkit_commons: ^0.7.1
   flutter_archive: ^6.0.0
   push: ^2.3.0
+
+
   overlay_support: ^2.1.0
   flutter_local_notifications: ^17.1.2
   camera: ^0.11.0
@@ -162,6 +164,7 @@ dependencies:
   change_app_package_name: ^1.1.0
   flutter_svg: ^1.1.6
   flutter_reaction_button: ^3.0.0+3
+  responsive_text_widget: ^0.0.2
 
 
 

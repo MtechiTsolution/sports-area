@@ -1,18 +1,25 @@
 import 'dart:async';
+import 'package:foap/helper/imports/chat_imports.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter_contacts/contact.dart';
 import 'package:foap/helper/imports/common_import.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:map_launcher/map_launcher.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:foap/helper/imports/chat_imports.dart';
 import '../competitions/video_player_screen.dart';
 import '../post/single_post_detail.dart';
 import '../profile/other_user_profile.dart';
 import '../settings_menu/settings_controller.dart';
 import '../story/story_viewer.dart';
+import 'package:foap/helper/file_extension.dart';
+import 'package:giphy_get/giphy_get.dart';
+import 'package:foap/screens/chat/chat_media_sharing_popup.dart';
+
+
 
 class ChatDetail extends StatefulWidget {
   final ChatRoomModel chatRoom;
@@ -29,6 +36,12 @@ class _ChatDetailState extends State<ChatDetail> {
       RefreshController(initialRefresh: false);
   final SettingsController _settingsController = Get.find();
   final UserProfileManager _userProfileManager = Get.find();
+
+
+
+  List<SharingMediaType> mediaTypes = [];
+  final ImagePicker _picker = ImagePicker();
+
 
   @override
   void initState() {
@@ -65,7 +78,7 @@ class _ChatDetailState extends State<ChatDetail> {
               height: 50,
             ),
             appBar(),
-            Expanded(child: messagesListView()),
+          Expanded(child: messagesListView()),
             Obx(() {
               return Column(
                 children: [
@@ -110,18 +123,18 @@ class _ChatDetailState extends State<ChatDetail> {
                 ],
               );
             }),
-            Obx(() {
-              return _chatDetailController.chatRoom.value?.amIMember == true
-                  ? _chatDetailController.actionMode.value ==
-                              ChatMessageActionMode.none ||
-                          _chatDetailController.actionMode.value ==
-                              ChatMessageActionMode.reply
-                      ? _chatDetailController.chatRoom.value!.canIChat
-                          ? messageComposerView()
-                          : cantChatView()
-                      : selectedMessageView()
-                  : cantChatView();
-            })
+        //     Obx(() {
+        //       return _chatDetailController.chatRoom.value?.amIMember == true
+        //           ? _chatDetailController.actionMode.value ==
+        //                       ChatMessageActionMode.none ||
+        //                   _chatDetailController.actionMode.value ==
+        //                       ChatMessageActionMode.reply
+        //               ? _chatDetailController.chatRoom.value!.canIChat
+        //                   ?messageComposerView()
+        //                   : cantChatView()
+        //               : selectedMessageView()
+        //           : cantChatView();
+        //     })
           ],
         ),
       ),
@@ -145,28 +158,28 @@ class _ChatDetailState extends State<ChatDetail> {
               });
               Get.back();
             }),
-            Obx(() => _chatDetailController.chatRoom.value?.isGroupChat == false
-                ? Row(
-                    children: [
-                      if (_settingsController.setting.value!.enableAudioCalling)
-                        ThemeIconWidget(
-                          ThemeIcon.mobile,
-                          color: AppColorConstants.iconColor,
-                          size: 25,
-                        ).p4.ripple(() {
-                          audioCall();
-                        }).rp(20),
-                      if (_settingsController.setting.value!.enableVideoCalling)
-                        ThemeIconWidget(
-                          ThemeIcon.videoCamera,
-                          color: AppColorConstants.iconColor,
-                          size: 25,
-                        ).p4.ripple(() {
-                          videoCall();
-                        })
-                    ],
-                  )
-                : Container()),
+            // Obx(() => _chatDetailController.chatRoom.value?.isGroupChat == false
+            //     ? Row(
+            //         children: [
+            //           if (_settingsController.setting.value!.enableAudioCalling)
+            //             ThemeIconWidget(
+            //               ThemeIcon.mobile,
+            //               color: AppColorConstants.iconColor,
+            //               size: 25,
+            //             ).p4.ripple(() {
+            //               audioCall();
+            //             }).rp(20),
+            //          if (_settingsController.setting.value!.enableVideoCalling)
+            //             ThemeIconWidget(
+            //               ThemeIcon.videoCamera,
+            //               color: AppColorConstants.iconColor,
+            //               size: 25,
+            //             ).p4.ripple(() {
+            //               videoCall();
+            //             })
+            //         ],
+            //       )
+             //   : Container()),
           ],
         ).hp(DesignConstants.horizontalPadding),
         Positioned(
@@ -347,17 +360,22 @@ class _ChatDetailState extends State<ChatDetail> {
         ));
   }
 
-  Widget replyMessageView() {
+
+   Widget replyMessageView()
+  {
+
     return Obx(() => _chatDetailController
                 .selectedMessage.value!.messageContentType ==
             MessageContentType.text
         ? replyTextMessageView(_chatDetailController.selectedMessage.value!)
-        : replyMediaMessageView(_chatDetailController.selectedMessage.value!));
+        : Text('data'),);
+    //replyMediaMessageView(_chatDetailController.selectedMessage.value!));
   }
 
   Widget replyTextMessageView(ChatMessageModel message) {
     return Container(
-      color: AppColorConstants.cardColor,
+      color:AppColorConstants.cardColor,
+      //AppColorConstants.cardColor,
       child: Row(
         children: [
           Expanded(
@@ -394,7 +412,7 @@ class _ChatDetailState extends State<ChatDetail> {
     );
   }
 
-  Widget replyMediaMessageView(ChatMessageModel message) {
+  Widget replyMediaMessageVie(ChatMessageModel message) {
     return Container(
       color: AppColorConstants.cardColor,
       child: Row(
@@ -439,7 +457,8 @@ class _ChatDetailState extends State<ChatDetail> {
     return Column(
       children: [
         _chatDetailController.actionMode.value == ChatMessageActionMode.reply
-            ? replyMessageView()
+            ?
+        replyMessageView()
             : Container(),
         Container(
           color: AppColorConstants.backgroundColor.darken(0.02),
@@ -455,6 +474,37 @@ class _ChatDetailState extends State<ChatDetail> {
                   Expanded(
                     child: Row(
                       children: [
+                        if (_settingsController.setting.value!.enablePhotoSharingInChat)
+                          _chatDetailController
+                              .messageTf.value.text.isNotEmpty? Container():
+                          ThemeIconWidget(
+                            ThemeIcon.camera,
+                            color: AppColorConstants.iconColor,
+                            size: 20,
+                          ).p4.ripple(() {
+                             openCamera();
+                          }),
+                        if (_settingsController.setting.value!.enableGifSharingInChat)
+                          _chatDetailController
+                              .messageTf.value.text.isNotEmpty? Container():
+                          ThemeIconWidget(
+                            ThemeIcon.gif,
+                            color: AppColorConstants.iconColor,
+                            size: 20,
+                          ).p4.ripple(() {
+                            openGiphy();
+                          }),
+                        if (_settingsController.setting.value!.enablePhotoSharingInChat)
+                          _chatDetailController
+                              .messageTf.value.text.isNotEmpty? Container():
+                          ThemeIconWidget(
+                            ThemeIcon.gallery,
+                            color: AppColorConstants.iconColor,
+                            size: 20,
+                          ).p4.ripple(() {
+                            openPhotoPicker();
+                          }),
+
                         Expanded(
                           child: SizedBox(
                             // height: 40,
@@ -485,37 +535,67 @@ class _ChatDetailState extends State<ChatDetail> {
                                           fontSize: FontSizes.h6,
                                           fontWeight: TextWeight.regular,
                                           color: AppColorConstants.themeColor),
-                                      hintText: pleaseEnterMessageString.tr),
+                                      hintText: 'Enter Message'),
                                 )),
                           ),
                         ),
+                        if (_settingsController.setting.value!.enableAudioCalling)
+                          _chatDetailController
+                              .messageTf.value.text.isNotEmpty? Container():
+                          ThemeIconWidget(
+                            ThemeIcon.mobile,
+                            color: AppColorConstants.iconColor,
+                            size: 18,
+                          ).p4.ripple(() {
+                            audioCall();
+                          }),
+
+
+
+                        if (_settingsController.setting.value!.enableVideoCalling)
+                          _chatDetailController
+                              .messageTf.value.text.isNotEmpty? Container():ThemeIconWidget(
+                            ThemeIcon.videoCamera,
+                            color: AppColorConstants.iconColor,
+                            size: 20,
+                          ).p4.ripple(() {
+                            videoCall();
+                          }),
+
                         const SizedBox(
                           width: 10,
                         ),
-                        Obx(() {
-                          return _chatDetailController
-                                  .messageTf.value.text.isNotEmpty
-                              ? Heading5Text(
-                                  sendString.tr,
-                                  weight: TextWeight.bold,
-                                  color: AppColorConstants.themeColor,
-                                ).ripple(() {
-                                  sendMessage();
-                                })
-                              : Container(
-                                  height: 30,
-                                  width: 30,
-                                  color: AppColorConstants.themeColor,
-                                  child: ThemeIconWidget(
-                                    ThemeIcon.plusSymbol,
-                                    color: Colors.white,
-                                  ),
-                                ).circular.ripple(() {
-                                  openMediaSharingOptionView();
-                                  // chatDetailController
-                                  //     .expandCollapseActions();
-                                });
-                        }),
+    Obx(() {
+                   return     ThemeIconWidget(
+                          ThemeIcon.send,
+                          color: AppColorConstants.iconColor,
+                          size: 20,
+                        ).p4.ripple(() {
+                          sendMessage();
+                        });}),
+                        // Obx(() {
+                        //   return _chatDetailController
+                        //           .messageTf.value.text.isNotEmpty
+                        //       ? ThemeIconWidget(
+                        //     ThemeIcon.send,
+                        //     color: AppColorConstants.iconColor,
+                        //     size: 20,
+                        //   ).p4.ripple(() {
+                        //     sendMessage();
+                        //   }) : Container(
+                        //           height: 30,
+                        //           width: 30,
+                        //           color: AppColorConstants.themeColor,
+                        //           child: ThemeIconWidget(
+                        //             ThemeIcon.plusSymbol,
+                        //             color: Colors.white,
+                        //           ),
+                        //         ).circular.ripple(() {
+                        //          openMediaSharingOptionView();
+                        //           // chatDetailController
+                        //           //     .expandCollapseActions();
+                        //         });
+                        // }),
                       ],
                     ),
                   ),
@@ -542,7 +622,6 @@ class _ChatDetailState extends State<ChatDetail> {
       ),
     );
   }
-
   Widget messagesListView() {
     return GetBuilder<ChatDetailController>(
         init: _chatDetailController,
@@ -588,13 +667,15 @@ class _ChatDetailState extends State<ChatDetail> {
                               return Column(
                                 children: [
                                   if (addDateSeparator)
-                                    dateSeparatorWidget(message),
+                                   dateSeparatorWidget(message),
                                   message.isDeleted == true ||
                                           message.isDateSeparator ||
                                           message.messageContentType ==
                                               MessageContentType.groupAction
-                                      ? messageTile(message)
-                                      : chatMessageFocusMenu(message),
+                                      ?
+                                 messageTile(message)
+                                      :
+                                  chatMessageFocusMenu(message),
                                 ],
                               );
                             },
@@ -711,7 +792,8 @@ class _ChatDetailState extends State<ChatDetail> {
     );
   }
 
-  Widget messageTile(ChatMessageModel chatMessage) {
+  Widget messageTile(ChatMessageModel chatMessage)
+  {
     return ChatMessageTile(
       message: chatMessage,
       showName: _chatDetailController.chatRoom.value?.isGroupChat == true,
@@ -908,15 +990,18 @@ class _ChatDetailState extends State<ChatDetail> {
       _chatDetailController.setToActionMode(mode: ChatMessageActionMode.none);
     });
   }
-
-  openMediaSharingOptionView() {
-    showModalBottomSheet(
-        backgroundColor: Colors.transparent,
-        context: context,
-        isScrollControlled: true,
-        builder: (context) => const FractionallySizedBox(
-            heightFactor: 0.5, child: ChatMediaSharingOptionPopup()));
-  }
+  //
+  // openMediaSharingOptionView() {
+  //   showModalBottomSheet(
+  //       backgroundColor: Colors.transparent,
+  //       context: context,
+  //       isScrollControlled: true,
+  //       builder: (context) => const FractionallySizedBox(
+  //           heightFactor: 0.5,
+  //           child: ChatMediaSharingOptionPopup()
+  //       )
+  //   );
+  // }
 
   void deleteMessageActionPopup() {
     bool ifAnyMessageByOpponent = _chatDetailController.selectedMessages
@@ -954,4 +1039,71 @@ class _ChatDetailState extends State<ChatDetail> {
               ],
             ));
   }
+
+  void openCamera() async {
+    XFile? photo = await _picker.pickImage(source: ImageSource.camera);
+    if (photo != null) {
+      Media media = await photo.toMedia(GalleryMediaType.photo);
+
+      _chatDetailController.sendImageMessage(
+          media: media,
+          mode: _chatDetailController.actionMode.value,
+          room: _chatDetailController.chatRoom.value!);
+    }
+}
+
+  void openPhotoPicker() async {
+    List<XFile> images = await _picker.pickMultiImage();
+    List<Media> medias = [];
+    for (XFile image in images) {
+      Media media = await image.toMedia(GalleryMediaType.photo);
+      medias.add(media);
+    }
+
+    for (Media media in medias) {
+      if (media.mediaType == GalleryMediaType.photo) {
+        _chatDetailController.sendImageMessage(
+            media: media,
+            mode: _chatDetailController.actionMode.value,
+            room: _chatDetailController.chatRoom.value!);
+      } else {
+        _chatDetailController.sendVideoMessage(
+            media: media,
+            mode: _chatDetailController.actionMode.value,
+            room: _chatDetailController.chatRoom.value!);
+      }
+    }
+  }
+  openGiphy() async {
+    String randomId = 'hsvcewd78djhbejkd';
+
+    GiphyGif? gif = await GiphyGet.getGif(
+      context: context,
+
+      //Required
+      apiKey: _settingsController.setting.value!.giphyApiKey!,
+      //Required.
+      lang: GiphyLanguage.english,
+      //Optional - Language for query.
+      randomID: randomId,
+      // Optional - An ID/proxy for a specific user.
+      tabColor: Colors.teal, // Optional- default accent color.
+    );
+
+    if (gif != null) {
+      _chatDetailController.sendGifMessage(
+          gif: gif.images!.original!.url,
+          mode: _chatDetailController.actionMode.value,
+          room: _chatDetailController.chatRoom.value!);
+    }
+  }
+
+}
+class SharingMediaType {
+  ThemeIcon icon;
+  String text;
+  MessageContentType contentType;
+
+  SharingMediaType(
+      {required this.icon, required this.text, required this.contentType});
 }

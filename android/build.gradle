@@ -14,8 +14,12 @@ buildscript {
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.5'
         classpath("com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:1.6.21-1.+")
         classpath 'ly.img.android.sdk:plugin:10.9.0'
+
     }
 }
+//    android.useAndroidX=true
+//    android.enableJetifier=true
+
 
 allprojects {
     repositories {

@@ -38,6 +38,7 @@ import 'components/post_card_controller.dart';
 import 'controllers/misc/gift_controller.dart';
 import 'controllers/misc/misc_controller.dart';
 import 'controllers/misc/users_controller.dart';
+
 import 'controllers/post/add_post_controller.dart';
 import 'controllers/chat_and_call/agora_call_controller.dart';
 import 'controllers/live/agora_live_controller.dart';
@@ -152,6 +153,9 @@ Future<void> main() async {
   Get.put(HighlightsController());
 
   setupServiceLocator();
+
+
+
 
   final UserProfileManager userProfileManager = Get.find();
   await userProfileManager.refreshProfile();

@@ -39,7 +39,8 @@ class ChatHistoryTile extends StatelessWidget {
                                       fit: BoxFit.cover,
                                     ),
                         ).circular
-                      : UserAvatarView(
+                      :
+                  UserAvatarView(
                           size: 45,
                           user: model.opponent!.userDetail,
                           onTapHandler: () {},
@@ -65,12 +66,15 @@ class ChatHistoryTile extends StatelessWidget {
                           height: 8,
                         ),
                         model.whoIsTyping.isNotEmpty
-                            ? BodyMediumText(
+                            ?
+                        BodyMediumText(
                                 '${model.whoIsTyping.join(',')} ${typingString.tr}',
                               )
-                            : model.lastMessage == null
+                            :
+                        model.lastMessage == null
                                 ? Container()
-                                : messageTypeShortInfo(
+                                :
+                        messageTypeShortInfo(
                                     message: model.lastMessage!,
                                   ),
                         const Spacer(),
@@ -92,7 +96,8 @@ class ChatHistoryTile extends StatelessWidget {
                         width: 25,
                         color: AppColorConstants.themeColor,
                         child: Center(
-                          child: BodyLargeText(
+                          child:
+                          BodyLargeText(
                             '${model.unreadMessages}',
                             weight: TextWeight.bold,
                           ),
@@ -103,8 +108,10 @@ class ChatHistoryTile extends StatelessWidget {
                     ? Container()
                     : BodySmallText(
                         model.lastMessage!.messageTime,
-                        weight: TextWeight.regular,
-                        color: AppColorConstants.themeColor,
+                        weight: TextWeight.semiBold,
+                        //TextWeight.regular,
+                      color: Colors.black,
+                      //  color: AppColorConstants.themeColor,
                       ),
               ],
             ),

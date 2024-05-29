@@ -2317,6 +2317,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
+  responsive_text_widget:
+    dependency: "direct main"
+    description:
+      name: responsive_text_widget
+      sha256: "9fbfd5cba849b4d82aae818fd17daa75435f549fa0f880cf0c0f2804759338c5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   ripple_wave:
     dependency: "direct main"
     description:

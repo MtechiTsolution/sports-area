@@ -34,18 +34,18 @@ class _ChatHistoryState extends State<ChatHistory> {
     return AppScaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColorConstants.backgroundColor,
-      floatingActionButton: Container(
-        height: 50,
-        width: 50,
-        color: AppColorConstants.themeColor,
-        child: ThemeIconWidget(
-          ThemeIcon.edit,
-          size: 25,
-          color: Colors.white,
-        ),
-      ).circular.ripple(() {
-        selectUsers();
-      }).bP16,
+      // floatingActionButton: Container(
+      //   height: 50,
+      //   width: 50,
+      //   color: AppColorConstants.themeColor,
+      //   child: ThemeIconWidget(
+      //     ThemeIcon.edit,
+      //     size: 25,
+      //     color: Colors.white,
+      //   ),
+      // ).circular.ripple(() {
+      //  // selectUsers();
+      // }).bP16,
       body: KeyboardDismissOnTap(
           child: DefaultTabController(
               length: tabs.length,
@@ -62,20 +62,23 @@ class _ChatHistoryState extends State<ChatHistory> {
                       ).ripple(() {
                         Get.back();
                       }),
-                      BodyLargeText(chatsString.tr, weight: TextWeight.medium),
-                      _settingsController.setting.value!.enableAudioCalling ||
-                              _settingsController
-                                  .setting.value!.enableVideoCalling
-                          ? ThemeIconWidget(
-                              ThemeIcon.mobile,
-                              color: AppColorConstants.iconColor,
-                              size: 25,
-                            ).ripple(() {
-                              Get.to(() => const CallHistory());
-                            })
-                          : const SizedBox(
-                              width: 25,
-                            ),
+                      BodyLargeText('Messaging', weight: TextWeight.semiBold,),
+                const SizedBox(
+            width: 25,
+          ),
+                      // _settingsController.setting.value!.enableAudioCalling ||
+                      //         _settingsController
+                      //             .setting.value!.enableVideoCalling
+                      //     ? ThemeIconWidget(
+                      //         ThemeIcon.mobile,
+                      //         color: AppColorConstants.iconColor,
+                      //         size: 25,
+                      //       ).ripple(() {
+                      //         Get.to(() => const CallHistory());
+                      //       })
+                      //     : const SizedBox(
+                      //         width: 25,
+                      //       ),
                     ],
                   ).setPadding(
                       left: DesignConstants.horizontalPadding,
@@ -93,12 +96,12 @@ class _ChatHistoryState extends State<ChatHistory> {
                           },
                           onSearchCompleted: (searchTerm) {})
                       .p16,
-                  SizedBox(
-                      width: Get.width,
-                      child: SMTabBar(
-                        tabs: tabs,
-                        canScroll: false,
-                      )),
+                  // SizedBox(
+                  //     width: Get.width,
+                  //     child: SMTabBar(
+                  //       tabs: tabs,
+                  //       canScroll: false,
+                  //     )),
                   Expanded(child: chatListView()),
                   // Expanded(
                   //     child: TabBarView(
@@ -135,7 +138,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                         //   weight: TextWeight.bold,
                         // ),
                         const SizedBox(
-                          height: 15,
+                          height: 10,
                         ),
                         for (ChatRoomModel room in rooms)
                           Column(
@@ -158,7 +161,8 @@ class _ChatHistoryState extends State<ChatHistory> {
                                     ],
                                   ),
                                 ),
-                                child: ChatHistoryTile(model: room)
+                                child:
+                                ChatHistoryTile(model: room)
                                     .ripple(() async {
                                   _chatController.clearUnreadCount(
                                       chatRoom: room);
@@ -189,7 +193,7 @@ class _ChatHistoryState extends State<ChatHistory> {
         });
   }
 
-  void selectUsers() {
+  void selectUser() {
     showModalBottomSheet(
         backgroundColor: Colors.transparent,
         context: context,

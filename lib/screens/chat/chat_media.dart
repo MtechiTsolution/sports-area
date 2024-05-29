@@ -1,8 +1,12 @@
+
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:foap/helper/imports/common_import.dart';
 import 'package:foap/helper/imports/chat_imports.dart';
 
-class ChatMediaList extends StatefulWidget {
+class ChatMediaList
+    extends StatefulWidget {
   final ChatRoomModel chatRoom;
 
   const ChatMediaList({Key? key, required this.chatRoom}) : super(key: key);

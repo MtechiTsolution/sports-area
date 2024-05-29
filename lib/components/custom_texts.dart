@@ -206,9 +206,10 @@ class BodyExtraLargeText extends StatelessWidget {
 
   final FontWeight? weight;
   final Color? color;
+  final double? fontSize;
 
   const BodyExtraLargeText(this.text,
-      {Key? key, this.textAlign, this.maxLines, this.weight, this.color})
+      {Key? key, this.textAlign, this.maxLines, this.weight, this.color,this.fontSize})
       : super(key: key);
 
   @override
@@ -228,12 +229,10 @@ class BodyLargeText extends StatelessWidget {
   final String text;
   final int? maxLines;
   final TextAlign? textAlign;
-
   final FontWeight? weight;
   final Color? color;
-
   const BodyLargeText(this.text,
-      {Key? key, this.textAlign, this.maxLines, this.weight, this.color})
+      {Key? key, this.textAlign, this.maxLines, this.weight, this.color,})
       : super(key: key);
 
   @override
@@ -244,6 +243,31 @@ class BodyLargeText extends StatelessWidget {
         maxLines: maxLines,
         style: TextStyle(
             fontSize: FontSizes.b2,
+            color: color ?? AppColorConstants.mainTextColor,
+            fontWeight: weight ?? TextWeight.medium));
+  }
+}
+
+class BodyMediumLargeText extends StatelessWidget {
+  final String text;
+  final int? maxLines;
+  final TextAlign? textAlign;
+  final FontWeight? weight;
+  final Color? color;
+  final  FontSizes? font;
+
+  const BodyMediumLargeText(this.text,
+      {Key? key, this.textAlign, this.maxLines, this.weight, this.color,this.font})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(text,
+        textAlign: textAlign ?? TextAlign.left,
+        overflow: TextOverflow.clip,
+        maxLines: maxLines,
+        style: TextStyle(
+            fontSize: 13,
             color: color ?? AppColorConstants.mainTextColor,
             fontWeight: weight ?? TextWeight.medium));
   }
@@ -269,8 +293,10 @@ class BodyMediumText extends StatelessWidget {
         maxLines: maxLines,
         style: TextStyle(
             fontSize: FontSizes.b3,
-            color: color ?? AppColorConstants.mainTextColor,
-            fontWeight: weight ?? TextWeight.medium));
+color: Colors.black38,
+            //     color: color ?? AppColorConstants.mainTextColor,
+            fontWeight: weight ?? TextWeight.medium)
+    );
   }
 }
 

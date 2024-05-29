@@ -9,16 +9,20 @@ Widget messageTypeShortInfo({
           type: message.messageReplyContentType,
           message: message,
         )
-      : messageTypeShortInfoFromType(
+      :
+  messageTypeShortInfoFromType(
           message: message, type: message.messageContentType);
 }
 
-Widget messageTypeShortInfoFromType({
+Widget messageTypeShortInfoFromType(
+
+    {
   required ChatMessageModel message,
   required MessageContentType type,
 }) {
   return type == MessageContentType.text
-      ? BodyMediumText(
+      ?
+  BodyMediumText(
           message.textMessage,
           maxLines: 1,
         )
